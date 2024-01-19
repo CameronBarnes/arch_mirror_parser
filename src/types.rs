@@ -39,6 +39,7 @@ impl LibraryItem {
 
 #[derive(Debug, PartialEq, Eq, Serialize)]
 pub enum DownloadType {
+    #[allow(unused)]
     Http,
     Rsync,
     #[allow(unused)]
