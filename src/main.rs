@@ -28,7 +28,7 @@ fn main() {
     }
 
     let results: Vec<(String, String, u64)> = parse_main_page("archlinux")
-        .into_iter()
+        .into_par_iter()
         .filter(|path| !path.trim().is_empty() && !path.trim().eq("..") && !path.trim().ends_with("-debug"))
         .map(|path| {
             let url = format!("rsync://mirrors.kernel.org/archlinux/{path}/");
