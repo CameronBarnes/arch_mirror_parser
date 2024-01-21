@@ -42,11 +42,14 @@ fn main() {
         .map(|(name, url, size)| LibraryItem::Document(Document::new(name, url, size, Rsync)))
         .collect();
 
+    let cat = Category::new("Arch Mirror".into(), library_items, false);
+    let cat = LibraryItem::Category(cat);
+
     let output_cat = LibraryItem::Category(Category::new(
         "Linux".into(),
         vec![LibraryItem::Category(Category::new(
             "Arch".into(),
-            library_items,
+            vec!(cat),
             false,
         ))],
         false,
