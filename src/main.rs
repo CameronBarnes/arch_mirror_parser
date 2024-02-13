@@ -30,7 +30,7 @@ fn main() {
 
     let arch_mirror_items = parse_mirror_source(
         "https://mirrors.edge.kernel.org/",
-        "rsync://mirrors.kernel.org/archlinux/",
+        "rsync://mirrors.kernel.org/",
         "archlinux",
         "-debug",
     );
@@ -42,11 +42,25 @@ fn main() {
         "https://ftp.halifax.rwth-aachen.de/",
         "rsync://ftp.halifax.rwth-aachen.de/",
         "manjaro",
-        "-debug",
-    ); // FIXME: Pretty sure '-debug' is wrong here
+        "-debug", // FIXME: Pretty sure '-debug' is wrong here
+    );
 
     let manjaro = Category::new(String::from("Manjaro Mirror"), manjaro_mirror_items, false);
     let manjaro_cat = LibraryItem::Category(manjaro);
+
+    let raspbian_mirror_items = parse_mirror_source(
+        "https://muug.ca/mirror/raspbian/",
+        "rsync://muug.ca/mirror/raspbian/",
+        "raspbian",
+        "-debug", // FIXME: Pretty sure '-debug' is wrong here
+    );
+
+    let raspbian = Category::new(
+        String::from("Raspbian Mirror"),
+        raspbian_mirror_items,
+        false,
+    );
+    let raspbian_cat = LibraryItem::Category(raspbian);
 
     let output_cat = LibraryItem::Category(Category::new(
         String::from("Linux"),
@@ -55,6 +69,11 @@ fn main() {
             LibraryItem::Category(Category::new(
                 String::from("Manjaro"),
                 vec![manjaro_cat],
+                false,
+            )),
+            LibraryItem::Category(Category::new(
+                String::from("Raspberry Pi"),
+                vec![raspbian_cat],
                 false,
             )),
         ],
